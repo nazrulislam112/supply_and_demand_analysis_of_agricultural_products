@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Management - Agri Supply Chain</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        // Custom Tailwind configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="flex h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-white shadow-md flex-shrink-0">
+            <div class="p-6">
+                <h1 class="text-2xl font-bold text-blue-600">Agri-Chain</h1>
+                <p class="text-sm text-gray-500">Farmer Portal</p>
+            </div>
+            <nav class="mt-6">
+                <a href="farmer.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
+                    <i class="fas fa-tachometer-alt w-6 h-6 mr-3"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
+                    <i class="fas fa-seedling w-6 h-6 mr-3"></i>
+                    <span>My Harvests</span>
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
+                    <i class="fas fa-box w-6 h-6 mr-3"></i>
+                    <span>My Products</span>
+                </a>
+                 <a href="warehouse.html" class="flex items-center px-6 py-3 text-gray-700 bg-gray-200 font-semibold">
+                    <i class="fas fa-warehouse w-6 h-6 mr-3"></i>
+                    <span>Warehouses</span>
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
+                    <i class="fas fa-user-circle w-6 h-6 mr-3"></i>
+                    <span>Profile</span>
+                </a>
+                 <a href="login.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100 mt-8">
+                    <i class="fas fa-sign-out-alt w-6 h-6 mr-3"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 overflow-y-auto">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8">Warehouse Management</h2>
+
+            <!-- Form to Add a New Warehouse -->
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-md mb-8">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-6">Add New Warehouse</h3>
+                <form id="add-warehouse-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Warehouse Name -->
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-600 mb-1">Warehouse Name</label>
+                        <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                    </div>
+                    <!-- Location -->
+                    <div>
+                        <label for="location" class="block text-sm font-medium text-gray-600 mb-1">Location</label>
+                        <input type="text" id="location" name="location" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                    </div>
+                    <!-- Capacity -->
+                    <div>
+                        <label for="capacity" class="block text-sm font-medium text-gray-600 mb-1">Capacity (sq ft)</label>
+                        <input type="number" id="capacity" name="capacity" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                    </div>
+                    <!-- Contact Info -->
+                    <div>
+                        <label for="contactInfo" class="block text-sm font-medium text-gray-600 mb-1">Contact Info</label>
+                        <input type="text" id="contactInfo" name="contactInfo" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                    </div>
+                    <!-- Warehouse Type -->
+                    <div>
+                        <label for="warehouseType" class="block text-sm font-medium text-gray-600 mb-1">Warehouse Type</label>
+                        <input type="text" id="warehouseType" name="warehouseType" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="e.g., Refrigerated, Dry Storage">
+                    </div>
+                    <!-- Last Inspection Date -->
+                    <div>
+                        <label for="lastInspectionDate" class="block text-sm font-medium text-gray-600 mb-1">Last Inspection Date</label>
+                        <input type="date" id="lastInspectionDate" name="lastInspectionDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                    </div>
+                    <!-- Submit Button -->
+                    <div class="md:col-span-2">
+                        <button type="submit" class="w-full md:w-auto bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                            Add Warehouse
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Display Existing Warehouses -->
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
+                 <h3 class="text-2xl font-semibold text-gray-700 mb-6">Existing Warehouses</h3>
+                 <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="text-left py-3 px-4 font-semibold text-sm text-gray-600 uppercase">ID</th>
+                                <th class="text-left py-3 px-4 font-semibold text-sm text-gray-600 uppercase">Name</th>
+                                <th class="text-left py-3 px-4 font-semibold text-sm text-gray-600 uppercase">Location</th>
+                                <th class="text-left py-3 px-4 font-semibold text-sm text-gray-600 uppercase">Capacity</th>
+                                <th class="text-left py-3 px-4 font-semibold text-sm text-gray-600 uppercase">Type</th>
+                                <th class="text-left py-3 px-4 font-semibold text-sm text-gray-600 uppercase">Last Inspected</th>
+                            </tr>
+                        </thead>
+                        <tbody id="warehouse-table-body" class="text-gray-700">
+                            <!-- Example Row 1 -->
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="py-3 px-4">1</td>
+                                <td class="py-3 px-4 font-medium">Main Storage</td>
+                                <td class="py-3 px-4">123 Industrial Ave</td>
+                                <td class="py-3 px-4">10000</td>
+                                <td class="py-3 px-4">Dry Storage</td>
+                                <td class="py-3 px-4">2025-10-26</td>
+                            </tr>
+                            <!-- Example Row 2 -->
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="py-3 px-4">2</td>
+                                <td class="py-3 px-4 font-medium">Cold Storage Unit</td>
+                                <td class="py-3 px-4">456 Freezer Rd</td>
+                                <td class="py-3 px-4">5000</td>
+                                <td class="py-3 px-4">Refrigerated</td>
+                                <td class="py-3 px-4">2025-11-15</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- You would link to a shared or specific JS file here -->
+    <!-- <script src="js/warehouse.js"></script> -->
+</body>
+</html>
