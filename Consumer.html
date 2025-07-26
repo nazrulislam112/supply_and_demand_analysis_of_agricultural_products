@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-600 to-green-800 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold rounded-md px-3 py-1 bg-green-700 bg-opacity-70">Consumer</h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#profile" class="hover:text-green-200 transition duration-300 text-lg">Profile</a></li>
+                    <li><a href="#orders" class="hover:text-green-200 transition duration-300 text-lg">Orders</a></li>
+                    <li><a href="#products" class="hover:text-green-200 transition duration-300 text-lg">Products</a></li>
+                    <li><a href="#" class="bg-white text-green-700 px-4 py-2 rounded-full shadow-md hover:bg-green-100 transition duration-300 text-lg font-medium">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container mx-auto p-6 flex-grow">
+        <!-- Dashboard Overview Section -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Card 1: Total Orders -->
+            <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1 border border-green-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Total Orders</h2>
+                    <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                </div>
+                <p class="text-4xl font-bold text-green-700">0</p>
+                <p class="text-gray-500 mt-2">Orders placed to date</p>
+            </div>
+
+            <!-- Card 2: Pending Orders -->
+            <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1 border border-yellow-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Pending Orders</h2>
+                    <svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <p class="text-4xl font-bold text-yellow-600">0</p>
+                <p class="text-gray-500 mt-2">Currently awaiting delivery</p>
+            </div>
+
+            <!-- Card 3: Favorite Retailers -->
+            <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1 border border-blue-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Favorite Retailers</h2>
+                    <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                </div>
+                <p class="text-4xl font-bold text-blue-600">0</p>
+                <p class="text-gray-500 mt-2">Shops you frequently buy from</p>
+            </div>
+        </section>
+
+        <!-- Consumer Profile Section -->
+        <section id="profile" class="bg-white p-8 rounded-xl shadow-lg mb-8 border border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-green-500 pb-2">Your Profile</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <p class="text-gray-600 mb-2"><span class="font-semibold text-gray-700">Consumer ID:</span> C001</p>
+                    <p class="text-gray-600 mb-2"><span class="font-semibold text-gray-700">Name:</span> MD.Abdullah</p>
+                    <p class="text-gray-600 mb-2"><span class="font-semibold text-gray-700">Phone Number:</span> +880 </p>
+                </div>
+                <div>
+                    <p class="text-gray-600 mb-2"><span class="font-semibold text-gray-700">Address:</span> Dhaka,Mirpur,Road 8890</p>
+                    <p class="text-gray-600 mb-2"><span class="font-semibold text-gray-700">Nutrition Preference:</span> Organic, Gluten-Free</p>
+                    <button class="mt-4 bg-green-500 text-white px-6 py-2 rounded-full shadow-md hover:bg-green-600 transition duration-300 font-medium">Edit Profile</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order History Section -->
+        <section id="orders" class="bg-white p-8 rounded-xl shadow-lg mb-8 border border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-green-500 pb-2">Order History</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white rounded-lg overflow-hidden shadow-sm">
+                    <thead class="bg-green-100">
+                        <tr>
+                            <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Order ID</th>
+                            <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Product Name</th>
+                            <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Order Date</th>
+                            <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Quantity</th>
+                            <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Retailer ID</th>
+                            <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 text-gray-700">ORD001</td>
+                            <td class="py-3 px-4 text-gray-700">Corn</td>
+                            <td class="py-3 px-4 text-gray-700">2025-07-20</td>
+                            <td class="py-3 px-4 text-gray-700">5 kg</td>
+                            <td class="py-3 px-4 text-gray-700">RET003</td>
+                            <td class="py-3 px-4"><span class="bg-green-200 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Delivered</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 text-gray-700">ORD002</td>
+                            <td class="py-3 px-4 text-gray-700">Fresh Carrots</td>
+                            <td class="py-3 px-4 text-gray-700">2025-07-22</td>
+                            <td class="py-3 px-4 text-gray-700">2 kg</td>
+                            <td class="py-3 px-4 text-gray-700">RET001</td>
+                            <td class="py-3 px-4"><span class="bg-yellow-200 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Pending</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 text-gray-700">ORD003</td>
+                            <td class="py-3 px-4 text-gray-700">Farm Eggs</td>
+                            <td class="py-3 px-4 text-gray-700">2025-07-24</td>
+                            <td class="py-3 px-4 text-gray-700">1 dozen</td>
+                            <td class="py-3 px-4 text-gray-700">RET002</td>
+                            <td class="py-3 px-4"><span class="bg-green-200 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Delivered</span></td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 text-gray-700">ORD004</td>
+                            <td class="py-3 px-4 text-gray-700">Organic Potatoes</td>
+                            <td class="py-3 px-4 text-gray-700">2025-07-25</td>
+                            <td class="py-3 px-4 text-gray-700">3 kg</td>
+                            <td class="py-3 px-4 text-gray-700">RET003</td>
+                            <td class="py-3 px-4"><span class="bg-red-200 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Cancelled</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="mt-6 bg-green-500 text-white px-6 py-2 rounded-full shadow-md hover:bg-green-600 transition duration-300 font-medium">View All Orders</button>
+        </section>
+
+        <!-- Products/Retailers Section -->
+        <section id="products" class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-green-500 pb-2">Explore Products & Retailers</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Product Card Example 1 -->
+                <div class="bg-gray-50 p-5 rounded-lg shadow-md hover:shadow-lg transition duration-300 border border-gray-100">
+                    <img src="https://placehold.co/400x250/E0F2F7/000000?text=Organic%20Tomato" alt="Organic Tomatoes" class="w-full h-40 object-cover rounded-lg mb-4 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Organic Tomatoes</h3>
+                    <p class="text-gray-600 text-sm mb-3">Freshly harvested, perfect for salads and cooking.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-bold text-green-700">BDT60/kg</span>
+                        <button class="bg-green-500 text-white px-4 py-2 rounded-full text-sm hover:bg-green-600 transition duration-300">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Product Card Example 2 -->
+                <div class="bg-gray-50 p-5 rounded-lg shadow-md hover:shadow-lg transition duration-300 border border-gray-100">
+                    <img src="https://placehold.co/400x250/E0F2F7/000000?text=Farm%20Fresh%20Eggs" alt="Farm Fresh Eggs" class="w-full h-40 object-cover rounded-lg mb-4 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Farm Fresh Eggs</h3>
+                    <p class="text-gray-600 text-sm mb-3">Locally sourced, free-range eggs.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-bold text-green-700">BDT50/dozen</span>
+                        <button class="bg-green-500 text-white px-4 py-2 rounded-full text-sm hover:bg-green-600 transition duration-300">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Retailer Card Example 1 -->
+                <div class="bg-gray-50 p-5 rounded-lg shadow-md hover:shadow-lg transition duration-300 border border-gray-100">
+                    <img src="https://placehold.co/400x250/E0F2F7/000000?text=Green%20Harvest%20Mart" alt="Green Harvest Mart" class="w-full h-40 object-cover rounded-lg mb-4 shadow-sm">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Green Harvest Mart</h3>
+                    <p class="text-gray-600 text-sm mb-3">Your local source for fresh produce and groceries.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-bold text-gray-700">Retailer</span>
+                        <button class="bg-green-500 text-white px-4 py-2 rounded-full text-sm hover:bg-green-600 transition duration-300">Visit Shop</button>
+                    </div>
+                </div>
+
+                <!-- Add more product/retailer cards as needed -->
+            </div>
+            <button class="mt-8 bg-green-500 text-white px-6 py-2 rounded-full shadow-md hover:bg-green-600 transition duration-300 font-medium">Browse All</button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 text-center mt-8 shadow-inner">
+        <div class="container mx-auto">
+            <p>&copy; 2025 Consumer. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
