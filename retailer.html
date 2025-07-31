@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retailer Shop Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 15px;
+            width: 100%;
+            background: #28a745;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Retailer Shop</h2>
+        <form>
+            <label for="shopId">Shop ID:</label>
+            <input type="text" id="shopId" name="shopId" placeholder="Enter Shop ID" required>
+
+            <label for="shopName">Shop Name:</label>
+            <input type="text" id="shopName" name="shopName" placeholder="Enter Shop Name" required>
+
+            <label for="contactInfo">Contact Information:</label>
+            <input type="text" id="contactInfo" name="contactInfo" placeholder="Enter Phone or Email" required>
+
+            <label for="shopLocation">Shop Location:</label>
+            <textarea id="shopLocation" name="shopLocation" placeholder="Enter Shop Address" rows="3" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
