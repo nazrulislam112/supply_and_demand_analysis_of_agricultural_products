@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri-Chain Farmer Portal</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Import Google Fonts - Roboto for consistent typography */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        /* Base styles for the body */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F8FBF5; /* Very light greenish-cream background */
+            display: flex;
+            min-height: 100vh; /* Full viewport height */
+            color: #4CAF50; /* Dark slate green text color */
+        }
+
+        /* Main container for the entire layout (sidebar + main content) */
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            width: 250px;
+            background-color: #1A4314; /* Deep Forest Green - Replaced dark blue */
+            color: white;
+            padding: 20px 0;
+            box-shadow: 2px 0 5px rgba(0, 70, 0, 0.08); /* Subtle green-tinted shadow */
+            display: flex;
+            flex-direction: column; /* Stack header and nav vertically */
+            flex-shrink: 0; /* Prevent sidebar from shrinking */
+        }
+
+        /* Sidebar header (Agri-Chain title and Farmer Portal subtitle) */
+        .sidebar-header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* Slightly more visible white border */
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .sidebar-header p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85); /* Brighter white for subtitle */
+        }
+
+        /* Sidebar navigation list */
+        .sidebar-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-nav a {
+            display: flex; /* Align icon and text */
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+        }
+
+        .sidebar-nav a .fas {
+            margin-right: 10px; /* Space between icon and text */
+            font-size: 18px;
+        }
+
+        /* Hover and active state for sidebar links */
+        .sidebar-nav a:hover,
+        .sidebar-nav li.active a {
+            background-color: #22571D; /* Slightly lighter Deep Forest Green - Replaced lighter dark blue */
+            color: #4CAF50; /* Green highlight for active/hover */
+            border-left: 5px solid #4CAF50; /* Green bar on the left */
+            padding-left: 15px; /* Adjust padding due to border */
+        }
+
+        /* Main content area */
+        .main-content {
+            flex-grow: 1; /* Takes up remaining space */
+            padding: 30px;
+            background-color: #F8FBF5; /* Very light greenish-cream background */
+            overflow-y: auto; /* Enable scrolling if content overflows */
+        }
+
+        .main-content h1 {
+            color: #1A4314; /* Deep Forest Green - Replaced dark slate green for main heading */
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        /* Card styling for sections (Add New Warehouse, Existing Warehouses, etc.) */
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 70, 0, 0.08); /* Soft green-tinted shadow */
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            color: #1A4314; /* Deep Forest Green - Replaced dark blue for headings */
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        /* Form row layout using flexbox */
+        .form-row {
+            display: flex;
+            gap: 20px; /* Space between form groups */
+            margin-bottom: 15px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
+        .form-group {
+            flex: 1; /* Each group takes equal space */
+            min-width: 200px; /* Minimum width before wrapping */
+        }
+
+        .form-group.full-width {
+            flex: 0 0 100%; /* Make this group take full width */
+        }
+
+        .form-group label {
+            display: block; /* Label on its own line */
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #6B8E23; /* Olive drab for labels */
+            font-size: 14px;
+        }
+
+        /* Styling for input fields and textareas */
+        input[type="text"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"],
+        textarea {
+            width: calc(100% - 20px); /* Account for padding */
+            padding: 10px;
+            border: 1px solid #A2CC9B; /* Light green border */
+            border-radius: 4px;
+            font-size: 15px;
+            box-sizing: border-box; /* Include padding and border in width */
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"][readonly] {
+            background-color: #E0F2E0; /* Very light green background for readonly */
+            cursor: not-allowed;
+        }
+
+        /* Focus state for input fields */
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="date"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            border-color: #4CAF50; /* Green border on focus */
+            outline: none;
+        }
+
+        /* Button styling */
+        button {
+            background-color: #4CAF50; /* Green button color (retained) */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Darker green on hover (retained) */
+        }
+
+        /* Responsive table container */
+        .table-responsive {
+            overflow-x: auto; /* Enable horizontal scrolling for tables on small screens */
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse; /* Collapse borders */
+            margin-top: 20px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #D4EDDA; /* Light green borders */
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        table th {
+            background-color: #E6F5E6; /* Light green background for headers */
+            color: #6B8E23; /* Olive drab for header text */
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #F0FDF0; /* Even lighter green for alternate row background */
+        }
+
+        table tr:hover {
+            background-color: #E0F5E0; /* Slightly darker light green on hover */
+        }
+
+        /* Dashboard specific styles */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 70, 0, 0.08);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dashboard-card h3 {
+            background-color: #89AC46; /* Dark blue from screenshot */
+            color: #1A4314; /* Green for numbers (retained) */
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        .dashboard-card p {
+            font-size: 36px;
+            font-weight: 700;
+            color: #4CAF50; /* Green for numbers (retained) */
+            margin: 10px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Agri-Chain</h2>
+                <p>Farmer Portal</p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li data-page="dashboard" class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li data-page="harvests"><a href="#"><i class="fas fa-seedling"></i> My Harvests</a></li>
+                    <li data-page="products"><a href="#"><i class="fas fa-box"></i> My Products</a></li>
+                    <li data-page="warehouses"><a href="#"><i class="fas fa-warehouse"></i> Warehouses</a></li>
+                    <li data-page="profile"><a href="#"><i class="fas fa-user"></i> Profile</a></li>
+                    <li data-page="retailers"><a href="#"><i class="fas fa-store"></i> Retailers</a></li>
+                    <li data-page="consumers"><a href="#"><i class="fas fa-users"></i> Consumers</a></li>
+                    <li data-page="orders"><a href="#"><i class="fas fa-clipboard-list"></i> Orders</a></li>
+                    <li data-page="weather"><a href="#"><i class="fas fa-cloud-sun"></i> Weather</a></li>
+                    <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area (dynamic content loaded here) -->
+        <main class="main-content" id="mainContent">
+            <!-- Content will be loaded here by JavaScript -->
+        </main>
+    </div>
+
+    <script>
+        // Get the main content area element
+        const mainContent = document.getElementById('mainContent');
+        // Get all sidebar navigation list items
+        const navItems = document.querySelectorAll('.sidebar-nav li');
+
+        // Function to load content into the main area
+        function loadContent(page) {
+            let contentHtml = '';
+            let pageTitle = '';
+
+            // Remove active class from all nav items
+            navItems.forEach(item => item.classList.remove('active'));
+            // Add active class to the clicked nav item
+            document.querySelector(`.sidebar-nav li[data-page="${page}"]`).classList.add('active');
+
+            // Generate HTML content based on the requested page
+            switch (page) {
+                case 'dashboard':
+                    pageTitle = 'Dashboard Overview';
+                    contentHtml = `
+                        <section class="card">
+                            <h2>Welcome to Agri-Chain Farmer Portal!</h2>
+                            <p>This dashboard provides a quick overview of your farming operations.</p>
+                            <div class="dashboard-grid">
+                                <div class="dashboard-card">
+                                    <h3>Total Harvests</h3>
+                                    <p>...</p>
+                                </div>
+                                <div class="dashboard-card">
+                                    <h3>Products Listed</h3>
+                                    <p>...</p>
+                                </div>
+                                <div class="dashboard-card">
+                                    <h3>Active Warehouses</h3>
+                                    <p>...</p>
+                                </div>
+                                <div class="dashboard-card">
+                                    <h3>Pending Orders</h3>
+                                    <p>...</p>
+                                </div>
+                            </div>
+                        </section>
+                    `;
+                    break;
+                case 'harvests':
+                    pageTitle = 'My Harvests';
+                    contentHtml = `
+                        <section class="card add-harvest">
+                            <h2>Add New Harvest</h2>
+                            <form id="addHarvestForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="harvestId">Harvest ID</label>
+                                        <input type="text" id="harvestId" name="harvestId" readonly placeholder="Auto-generated">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="farmerIdHarvest">Farmer ID</label>
+                                        <input type="text" id="farmerIdHarvest" name="farmerIdHarvest" readonly placeholder="Your ID">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="harvestDate">Harvest Date</label>
+                                        <input type="date" id="harvestDate" name="harvestDate">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="quantityHarvested">Quantity Harvested</label>
+                                        <input type="text" id="quantityHarvested" name="quantityHarvested" placeholder="e.g., in kg/tons">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="cropVarietyHarvest">Crop Variety</label>
+                                        <input type="text" id="cropVarietyHarvest" name="cropVarietyHarvest" placeholder="e.g., Wheat, Rice">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="qualityMetrics">Quality Metrics</label>
+                                        <input type="text" id="qualityMetrics" name="qualityMetrics" placeholder="e.g., Grade A, Organic">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <label for="storageLocation">Storage Location</label>
+                                        <input type="text" id="storageLocation" name="storageLocation" placeholder="e.g., Warehouse A, Farm Silo">
+                                    </div>
+                                </div>
+                                <button type="submit" id="addHarvestBtn">Add Harvest</button>
+                            </form>
+                        </section>
+                        <section class="card existing-harvests">
+                            <h2>Existing Harvests</h2>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>FARMER ID</th>
+                                            <th>DATE</th>
+                                            <th>QUANTITY</th>
+                                            <th>CROP VARIETY</th>
+                                            <th>QUALITY</th>
+                                            <th>STORAGE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    `;
+                    break;
+                case 'products':
+                    pageTitle = 'My Products';
+                    contentHtml = `
+                        <section class="card add-product">
+                            <h2>Add New Product</h2>
+                            <form id="addProductForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="productId">Product ID</label>
+                                        <input type="text" id="productId" name="productId" readonly placeholder="Auto-generated">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="farmerIdProduct">Farmer ID</label>
+                                        <input type="text" id="farmerIdProduct" name="farmerIdProduct" readonly placeholder="Your ID">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="productType">Type</label>
+                                        <input type="text" id="productType" name="productType" placeholder="e.g., Grain, Vegetable">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="quantityProduced">Quantity Produced</label>
+                                        <input type="text" id="quantityProduced" name="quantityProduced" placeholder="e.g., 1000">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="unitOfMeasure">Unit of Measure</label>
+                                        <input type="text" id="unitOfMeasure" name="unitOfMeasure" placeholder="e.g., kg, bushels">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pricePerUnit">Price Per Unit</label>
+                                        <input type="text" id="pricePerUnit" name="pricePerUnit" placeholder="e.g., 5.00">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="productionDate">Production Date</label>
+                                        <input type="date" id="productionDate" name="productionDate">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="expirationDate">Expiration Date</label>
+                                        <input type="date" id="expirationDate" name="expirationDate">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="certifications">Certifications</label>
+                                        <input type="text" id="certifications" name="certifications" placeholder="e.g., Organic, Fair Trade">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nutritionalInfo">Nutritional Info</label>
+                                        <input type="text" id="nutritionalInfo" name="nutritionalInfo" placeholder="e.g., High Protein">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="trackingInfo">Tracking Info</label>
+                                        <input type="text" id="trackingInfo" name="trackingInfo" placeholder="e.g., Lot Number">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="numberOfReviews">Number of Reviews</label>
+                                        <input type="number" id="numberOfReviews" name="numberOfReviews" placeholder="e.g., 0">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <label for="averageRating">Average Rating</label>
+                                        <input type="text" id="averageRating" name="averageRating" placeholder="e.g., 0.0">
+                                    </div>
+                                </div>
+                                <button type="submit" id="addProductBtn">Add Product</button>
+                            </form>
+                        </section>
+                        <section class="card existing-products">
+                            <h2>Existing Products</h2>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>TYPE</th>
+                                            <th>QUANTITY</th>
+                                            <th>UNIT</th>
+                                            <th>PRICE</th>
+                                            <th>PROD. DATE</th>
+                                            <th>EXP. DATE</th>
+                                            <th>CERTIFICATIONS</th>
+                                            <th>NUTRITION</th>
+                                            <th>TRACKING</th>
+                                            <th>REVIEWS</th>
+                                            <th>RATING</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    `;
+                    break;
+                case 'warehouses':
+                    pageTitle = 'Warehouse Management';
+                    contentHtml = `
+                        <section class="card add-warehouse">
+                            <h2>Add New Warehouse</h2>
+                            <form id="addWarehouseForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="warehouseName">Warehouse Name</label>
+                                        <input type="text" id="warehouseName" name="warehouseName" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="location">Location</label>
+                                        <input type="text" id="location" name="location" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="capacity">Capacity (sq ft)</label>
+                                        <input type="text" id="capacity" name="capacity" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contactInfo">Contact Info</label>
+                                        <input type="text" id="contactInfo" name="contactInfo" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="warehouseType">Warehouse Type</label>
+                                        <input type="text" id="warehouseType" name="warehouseType" placeholder="e.g., Refrigerated, Dry Storage">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastInspectionDate">Last Inspection Date</label>
+                                        <input type="date" id="lastInspectionDate" name="lastInspectionDate">
+                                    </div>
+                                </div>
+                                <button type="submit" id="addWarehouseBtn">Add Warehouse</button>
+                            </form>
+                        </section>
+                        <section class="card existing-warehouses">
+                            <h2>Existing Warehouses</h2>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>NAME</th>
+                                            <th>LOCATION</th>
+                                            <th>CAPACITY</th>
+                                            <th>TYPE</th>
+                                            <th>LAST INSPECTED</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    `;
+                    break;
+                case 'profile':
+                    pageTitle = 'Farmer Profile';
+                    contentHtml = `
+                        <section class="card edit-farmer-profile">
+                            <h2>Edit Your Profile</h2>
+                            <form id="farmerProfileForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="farmerIdProfile">Farmer ID</label>
+                                        <input type="text" id="farmerIdProfile" name="farmerIdProfile" readonly placeholder="Your ID">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="farmerNameProfile">Name</label>
+                                        <input type="text" id="farmerNameProfile" name="farmerNameProfile" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="phoneNumberProfile">Phone Number</label>
+                                        <input type="tel" id="phoneNumberProfile" name="phoneNumberProfile" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="landAreaProfile">Land Area</label>
+                                        <input type="text" id="landAreaProfile" name="landAreaProfile" placeholder="e.g., in acres/hectares">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <label for="addressProfile">Address</label>
+                                        <textarea id="addressProfile" name="addressProfile" rows="3" placeholder=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="cropVarietyProfile">Crop Variety</label>
+                                        <input type="text" id="cropVarietyProfile" name="cropVarietyProfile" placeholder="e.g., Wheat, Rice, Corn">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="capacityProfile">Capacity</label>
+                                        <input type="text" id="capacityProfile" name="capacityProfile" placeholder="e.g., in tons/kg">
+                                    </div>
+                                </div>
+                                <button type="submit" id="saveProfileBtn">Save Profile</button>
+                            </form>
+                        </section>
+                    `;
+                    break;
+                case 'retailers':
+                    pageTitle = 'Retailer Management';
+                    contentHtml = `
+                        <section class="card add-retailer">
+                            <h2>Add New Retailer</h2>
+                            <form id="addRetailerForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="retailerId">Retailer ID</label>
+                                        <input type="text" id="retailerId" name="retailerId" readonly placeholder="Auto-generated">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="retailerName">Name</label>
+                                        <input type="text" id="retailerName" name="retailerName" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="retailerLocation">Location</label>
+                                        <input type="text" id="retailerLocation" name="retailerLocation" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="retailerContactInfo">Contact Info</label>
+                                        <input type="text" id="retailerContactInfo" name="retailerContactInfo" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <label for="shopAddress">Shop Address</label>
+                                        <textarea id="shopAddress" name="shopAddress" rows="3" placeholder=""></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" id="addRetailerBtn">Add Retailer</button>
+                            </form>
+                        </section>
+                        <section class="card existing-retailers">
+                            <h2>Existing Retailers</h2>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>NAME</th>
+                                            <th>LOCATION</th>
+                                            <th>CONTACT</th>
+                                            <th>ADDRESS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+                                        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+                                        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    `;
+                    break;
+                case 'consumers':
+                    pageTitle = 'Consumer Management';
+                    contentHtml = `
+                        <section class="card add-consumer">
+                            <h2>Add New Consumer</h2>
+                            <form id="addConsumerForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="consumerId">Consumer ID</label>
+                                        <input type="text" id="consumerId" name="consumerId" readonly placeholder="Auto-generated">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="consumerName">Name</label>
+                                        <input type="text" id="consumerName" name="consumerName" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="consumerPhone">Phone</label>
+                                        <input type="tel" id="consumerPhone" name="consumerPhone" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nutritionPreferences">Nutrition Preferences</label>
+                                        <input type="text" id="nutritionPreferences" name="nutritionPreferences" placeholder="e.g., Vegan, Gluten-Free">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <label for="consumerAddress">Address</label>
+                                        <textarea id="consumerAddress" name="consumerAddress" rows="3" placeholder=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <label for="allergies">Allergies</label>
+                                        <input type="text" id="allergies" name="allergies" placeholder="e.g., Peanuts, Dairy">
+                                    </div>
+                                </div>
+                                <button type="submit" id="addConsumerBtn">Add Consumer</button>
+                            </form>
+                        </section>
+                        <section class="card existing-consumers">
+                            <h2>Existing Consumers</h2>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>NAME</th>
+                                            <th>PHONE</th>
+                                            <th>ADDRESS</th>
+                                            <th>NUTRITION PREF.</th>
+                                            <th>ALLERGIES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    `;
+                    break;
+                case 'orders':
+                    pageTitle = 'Order Management';
+                    contentHtml = `
+                        <section class="card add-order">
+                            <h2>Place New Order</h2>
+                            <form id="addOrderForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="orderId">Order ID</label>
+                                        <input type="text" id="orderId" name="orderId" readonly placeholder="Auto-generated">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="consumerIdOrder">Consumer ID</label>
+                                        <input type="text" id="consumerIdOrder" name="consumerIdOrder" placeholder="ID of consumer">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="retailerIdOrder">Retailer ID</label>
+                                        <input type="text" id="retailerIdOrder" name="retailerIdOrder" placeholder="ID of retailer">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="orderDate">Order Date</label>
+                                        <input type="date" id="orderDate" name="orderDate">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="orderedQuantity">Ordered Quantity</label>
+                                        <input type="text" id="orderedQuantity" name="orderedQuantity" placeholder="e.g., 10 kg">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="totalAmount">Total Amount</label>
+                                        <input type="text" id="totalAmount" name="totalAmount" placeholder="e.g., 50.00">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <label for="deliveryAddress">Delivery Address</label>
+                                        <textarea id="deliveryAddress" name="deliveryAddress" rows="3" placeholder=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="orderStatus">Order Status</label>
+                                        <input type="text" id="orderStatus" name="orderStatus" placeholder="e.g., Pending, Shipped">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="paymentStatus">Payment Status</label>
+                                        <input type="text" id="paymentStatus" name="paymentStatus" placeholder="e.g., Paid, Unpaid">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group full-width">
+                                        <label for="deliveryDate">Delivery Date</label>
+                                        <input type="date" id="deliveryDate" name="deliveryDate">
+                                    </div>
+                                </div>
+                                <button type="submit" id="addOrderBtn">Place Order</button>
+                            </form>
+                        </section>
+                        <section class="card existing-orders">
+                            <h2>Existing Orders</h2>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>CONSUMER ID</th>
+                                            <th>RETAILER ID</th>
+                                            <th>ORDER DATE</th>
+                                            <th>QUANTITY</th>
+                                            <th>AMOUNT</th>
+                                            <th>DELIVERY ADDRESS</th>
+                                            <th>STATUS</th>
+                                            <th>PAYMENT</th>
+                                            <th>DELIVERY DATE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    `;
+                    break;
+                case 'weather':
+                    pageTitle = 'Weather Information';
+                    contentHtml = `
+                        <section class="card add-weather">
+                            <h2>Add Weather Data</h2>
+                            <form id="addWeatherForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="weatherId">Weather ID</label>
+                                        <input type="text" id="weatherId" name="weatherId" readonly placeholder="Auto-generated">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="weatherLocation">Location</label>
+                                        <input type="text" id="weatherLocation" name="weatherLocation" placeholder="e.g., Your Farm Location">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="weatherDate">Date</label>
+                                        <input type="date" id="weatherDate" name="weatherDate">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="temperature">Temperature</label>
+                                        <input type="text" id="temperature" name="temperature" placeholder="e.g., 25°C">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="humidity">Humidity</label>
+                                        <input type="text" id="humidity" name="humidity" placeholder="e.g., 70%">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="precipitation">Precipitation</label>
+                                        <input type="text" id="precipitation" name="precipitation" placeholder="e.g., 5mm">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="windSpeed">Wind Speed</label>
+                                        <input type="text" id="windSpeed" name="windSpeed" placeholder="e.g., 10 km/h">
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="weatherForecast">Weather Forecast</label>
+                                        <input type="text" id="weatherForecast" name="weatherForecast" placeholder="e.g., Sunny, Chance of Rain">
+                                    </div>
+                                </div>
+                                <button type="submit" id="addWeatherBtn">Add Weather Data</button>
+                            </form>
+                        </section>
+                        <section class="card existing-weather">
+                            <h2>Existing Weather Data</h2>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>LOCATION</th>
+                                            <th>DATE</th>
+                                            <th>TEMP</th>
+                                            <th>HUMIDITY</th>
+                                            <th>PRECIPITATION</th>
+                                            <th>WIND SPEED</th>
+                                            <th>FORECAST</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    `;
+                    break;
+                default:
+                    pageTitle = 'Page Not Found';
+                    contentHtml = `<section class="card"><h2>Page Not Found</h2><p>The requested page does not exist.</p></section>`;
+            }
+
+            // Update main content with the new page title and HTML
+            mainContent.innerHTML = `<h1>${pageTitle}</h1>` + contentHtml;
+
+            // Re-attach event listeners for buttons after content is loaded
+            attachButtonListeners();
+        }
+
+        // Function to attach event listeners to buttons
+        function attachButtonListeners() {
+            // Harvests Page Button
+            const addHarvestBtn = document.getElementById('addHarvestBtn');
+            if (addHarvestBtn) {
+                addHarvestBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    // Basic validation for demonstration
+                    const form = document.getElementById('addHarvestForm');
+                    const inputs = form.querySelectorAll('input, textarea');
+                    let allFilled = true;
+                    inputs.forEach(input => {
+                        if (!input.value && !input.readOnly) {
+                            allFilled = false;
+                        }
+                    });
+                    if (allFilled) {
+                        alert('Harvest details added! (Placeholder action)');
+                        form.reset();
+                    } else {
+                        alert('Please fill in all harvest details.');
+                    }
+                });
+            }
+
+            // Products Page Button
+            const addProductBtn = document.getElementById('addProductBtn');
+            if (addProductBtn) {
+                addProductBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const form = document.getElementById('addProductForm');
+                    const inputs = form.querySelectorAll('input, textarea');
+                    let allFilled = true;
+                    inputs.forEach(input => {
+                        if (!input.value && !input.readOnly) {
+                            allFilled = false;
+                        }
+                    });
+                    if (allFilled) {
+                        alert('Product details added! (Placeholder action)');
+                        form.reset();
+                    } else {
+                        alert('Please fill in all product details.');
+                    }
+                });
+            }
+
+            // Warehouses Page Button
+            const addWarehouseBtn = document.getElementById('addWarehouseBtn');
+            if (addWarehouseBtn) {
+                addWarehouseBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const form = document.getElementById('addWarehouseForm');
+                    const inputs = form.querySelectorAll('input, textarea');
+                    let allFilled = true;
+                    inputs.forEach(input => {
+                        if (!input.value && !input.readOnly) {
+                            allFilled = false;
+                        }
+                    });
+                    if (allFilled) {
+                        alert('New warehouse added! (Placeholder action)');
+                        form.reset();
+                    } else {
+                        alert('Please fill in all warehouse details.');
+                    }
+                });
+            }
+
+            // Profile Page Button
+            const saveProfileBtn = document.getElementById('saveProfileBtn');
+            if (saveProfileBtn) {
+                saveProfileBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const form = document.getElementById('farmerProfileForm');
+                    const inputs = form.querySelectorAll('input, textarea');
+                    let allFilled = true;
+                    inputs.forEach(input => {
+                        if (!input.value && !input.readOnly) {
+                            allFilled = false;
+                        }
+                    });
+                    if (allFilled) {
+                        alert('Farmer profile saved! (Placeholder action)');
+                        // In a real app, you might fetch current data to pre-fill
+                    } else {
+                        alert('Please fill in all profile details.');
+                    }
+                });
+            }
+
+            // Retailers Page Button
+            const addRetailerBtn = document.getElementById('addRetailerBtn');
+            if (addRetailerBtn) {
+                addRetailerBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const form = document.getElementById('addRetailerForm');
+                    const inputs = form.querySelectorAll('input, textarea');
+                    let allFilled = true;
+                    inputs.forEach(input => {
+                        if (!input.value && !input.readOnly) {
+                            allFilled = false;
+                        }
+                    });
+                    if (allFilled) {
+                        alert('Retailer added! (Placeholder action)');
+                        form.reset();
+                    } else {
+                        alert('Please fill in all retailer details.');
+                    }
+                });
+            }
+
+            // Consumers Page Button
+            const addConsumerBtn = document.getElementById('addConsumerBtn');
+            if (addConsumerBtn) {
+                addConsumerBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const form = document.getElementById('addConsumerForm');
+                    const inputs = form.querySelectorAll('input, textarea');
+                    let allFilled = true;
+                    inputs.forEach(input => {
+                        if (!input.value && !input.readOnly) {
+                            allFilled = false;
+                        }
+                    });
+                    if (allFilled) {
+                        alert('Consumer added! (Placeholder action)');
+                        form.reset();
+                    } else {
+                        alert('Please fill in all consumer details.');
+                    }
+                });
+            }
+
+            // Orders Page Button
+            const addOrderBtn = document.getElementById('addOrderBtn');
+            if (addOrderBtn) {
+                addOrderBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const form = document.getElementById('addOrderForm');
+                    const inputs = form.querySelectorAll('input, textarea');
+                    let allFilled = true;
+                    inputs.forEach(input => {
+                        if (!input.value && !input.readOnly) {
+                            allFilled = false;
+                        }
+                    });
+                    if (allFilled) {
+                        alert('Order placed! (Placeholder action)');
+                        form.reset();
+                    } else {
+                        alert('Please fill in all order details.');
+                    }
+                });
+            }
+
+            // Weather Page Button
+            const addWeatherBtn = document.getElementById('addWeatherBtn');
+            if (addWeatherBtn) {
+                addWeatherBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const form = document.getElementById('addWeatherForm');
+                    const inputs = form.querySelectorAll('input, textarea');
+                    let allFilled = true;
+                    inputs.forEach(input => {
+                        if (!input.value && !input.readOnly) {
+                            allFilled = false;
+                        }
+                    });
+                    if (allFilled) {
+                        alert('Weather data added! (Placeholder action)');
+                        form.reset();
+                    } else {
+                        alert('Please fill in all weather details.');
+                    }
+                });
+            }
+        }
+
+        // Event listeners for sidebar navigation clicks
+        navItems.forEach(item => {
+            item.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default link behavior
+                const page = this.dataset.page; // Get the data-page attribute value
+                if (page) {
+                    loadContent(page); // Load content for the clicked page
+                } else {
+                    // Handle logout or other non-page links
+                    if (this.querySelector('a').textContent.includes('Logout')) {
+                        alert('Logging out... (Placeholder action)');
+                        // In a real application, you would handle session termination
+                    }
+                }
+            });
+        });
+
+        // Load the dashboard content by default when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadContent('dashboard');
+        });
+    </script>
+</body>
+</html>
