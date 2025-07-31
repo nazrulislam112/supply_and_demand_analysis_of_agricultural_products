@@ -1,0 +1,106 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri-Chain Login</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font import for a clean look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <!-- Main container for the login card -->
+    <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg">
+        <!-- Login form header -->
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-gray-900">
+                Log In to Agri-Chain
+            </h1>
+            <p class="mt-2 text-sm text-gray-600">
+                Manage your farming operations efficiently
+            </p>
+        </div>
+
+        <!-- Login form -->
+        <form id="loginForm" class="space-y-6">
+            <!-- Email/Username input field -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">
+                    Email address
+                </label>
+                <div class="mt-1">
+                    <input id="email" name="email" type="email" autocomplete="email" required
+                           class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm transition duration-150 ease-in-out">
+                </div>
+            </div>
+
+            <!-- Password input field -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">
+                    Password
+                </label>
+                <div class="mt-1">
+                    <input id="password" name="password" type="password" autocomplete="current-password" required
+                           class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm transition duration-150 ease-in-out">
+                </div>
+            </div>
+
+            <!-- Forgot password link -->
+            <div class="flex items-center justify-between">
+                <div class="text-sm">
+                    <a href="#" class="font-medium text-green-600 hover:text-green-500">
+                        Forgot your password?
+                    </a>
+                </div>
+            </div>
+
+            <!-- Login button -->
+            <div>
+                <button type="submit"
+                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
+                    Sign in
+                </button>
+            </div>
+        </form>
+
+        <!-- Registration link and message box for feedback -->
+        <div class="text-center text-sm text-gray-600">
+            <p>
+                Don't have an account?
+                <a href="#" class="font-medium text-green-600 hover:text-green-500">
+                    Sign up
+                </a>
+            </p>
+        </div>
+        <div id="messageBox" class="hidden p-3 mt-4 text-sm text-center rounded-lg"></div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageBox = document.getElementById('messageBox');
+
+            // Simple validation and placeholder message
+            if (email && password) {
+                messageBox.className = 'p-3 mt-4 text-sm text-center rounded-lg text-green-700 bg-green-100';
+                messageBox.textContent = 'Login successful! Redirecting... (This is a placeholder action)';
+                messageBox.classList.remove('hidden');
+                // In a real application, you would handle authentication here and redirect the user.
+            } else {
+                messageBox.className = 'p-3 mt-4 text-sm text-center rounded-lg text-red-700 bg-red-100';
+                messageBox.textContent = 'Please enter both email and password.';
+                messageBox.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
