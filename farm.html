@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farmer Management</title>
+    <title>Farm Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
@@ -231,19 +231,19 @@
         </aside>
 
         <main class="main-content">
-            <h1>Farmer Management</h1>
+            <h1>Farm Profile</h1>
 
-            <section class="card add-farmer">
-                <h2>Farmer Details</h2>
-                <form id="farmerForm">
+            <section class="card add-farm">
+                <h2>Farm Details</h2>
+                <form id="farmProfileForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="farmerId">Farmer ID</label>
-                            <input type="text" id="farmerId" name="farmerId" readonly placeholder="Your ID">
+                            <label for="farmIdProfile">Farm ID</label>
+                            <input type="text" id="farmIdProfile" name="farmIdProfile" readonly placeholder="Your ID">
                         </div>
                         <div class="form-group">
-                            <label for="farmerName">Name</label>
-                            <input type="text" id="farmerName" name="farmerName" placeholder="">
+                            <label for="farmName">Name</label>
+                            <input type="text" id="farmName" name="farmName" placeholder="">
                         </div>
                     </div>
                     <div class="form-row">
@@ -264,20 +264,20 @@
                     </div>
                      <div class="form-row">
                         <div class="form-group">
-                            <label for="cropVariety">Crop Variety</label>
-                            <input type="text" id="cropVariety" name="cropVariety" placeholder="e.g., Wheat, Rice, Corn">
+                            <label for="district">District</label>
+                            <input type="text" id="district" name="district" placeholder="Enter your district">
                         </div>
                         <div class="form-group">
-                            <label for="capacity">Capacity</label>
-                            <input type="text" id="capacity" name="capacity" placeholder="e.g., in tons/kg">
+                            <label for="division">Division</label>
+                            <input type="text" id="division" name="division" placeholder="Enter your division">
                         </div>
                     </div>
-                    <button type="submit" id="saveFarmerBtn">Save Farmer Details</button>
+                    <button type="submit" id="saveProfileBtn">Save Profile</button>
                 </form>
             </section>
 
-            <section class="card existing-farmers">
-                <h2>Existing Farmers</h2>
+            <section class="card farm list">
+                <h2>Farm List</h2>
                 <div class="table-responsive">
                     <table>
                         <thead>
@@ -286,9 +286,8 @@
                                 <th>NAME</th>
                                 <th>PHONE</th>
                                 <th>ADDRESS</th>
-                                <th>LAND AREA</th>
-                                <th>CROP VARIETY</th>
-                                <th>CAPACITY</th>
+                                <th>DISTRICT</th>
+                                <th>DIVISION</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -299,7 +298,6 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -308,10 +306,8 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
                             </tr>
                             <tr>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -327,40 +323,40 @@
     </div>
 
     <script>
-        document.getElementById('saveFarmerBtn').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default form submission
+        const saveProfileBtn = document.getElementById('saveProfileBtn');
+        const messageBox = document.getElementById('messageBox');
 
-            const farmerId = document.getElementById('farmerId').value;
-            const farmerName = document.getElementById('farmerName').value;
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            const address = document.getElementById('address').value;
-            const landArea = document.getElementById('landArea').value;
-            const cropVariety = document.getElementById('cropVariety').value;
-            const capacity = document.getElementById('capacity').value;
-
-            if (farmerName && phoneNumber && address && landArea && cropVariety && capacity) {
-                alert('Farmer details saved! (This is a placeholder action)');
-                // In a real application, you would send this data to a server
-                // and then update the 'Existing Farmers' table.
-                document.getElementById('farmerForm').reset(); // Clear form fields
-                document.getElementById('farmerId').value = ''; // Reset ID if auto-generated
+        function showMessage(message, type = 'success') {
+            messageBox.textContent = message;
+            messageBox.className = 'message-box show';
+            if (type === 'error') {
+                messageBox.style.backgroundColor = '#d9534f';
             } else {
-                alert('Please fill in all farmer details.');
+                messageBox.style.backgroundColor = '#4CAF50';
             }
-        });
+            setTimeout(() => {
+                messageBox.className = 'message-box';
+            }, 3000);
+        }
 
-        // Optional: Make sidebar navigation active based on current page
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.sidebar-nav a');
-            navLinks.forEach(link => {
-                // Assuming "Profile" is the closest link for farmer details
-                if (link.textContent.includes('Profile')) {
-                    link.parentElement.classList.add('active');
+        if (saveProfileBtn) {
+            saveProfileBtn.addEventListener('click', function(event) {
+                event.preventDefault();
+                const form = document.getElementById('farmerProfileForm');
+                const inputs = form.querySelectorAll('input, textarea');
+                let allFilled = true;
+                inputs.forEach(input => {
+                    if (!input.value && !input.readOnly) {
+                        allFilled = false;
+                    }
+                });
+                if (allFilled) {
+                    showMessage('Agri Firm profile saved! (Placeholder action)');
                 } else {
-                    link.parentElement.classList.remove('active');
+                    showMessage('Please fill in all profile details.', 'error');
                 }
             });
-        });
+        }
     </script>
 </body>
 </html>
